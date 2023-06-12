@@ -1,3 +1,8 @@
+import numpy as np
 class Solution:
     def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
-        return [ original[i*n:(i+1)*n] for i in range(m) ] if len(original) == m*n else []
+        if len(original) != m*n:
+            return []
+        else:
+            return np.array(original).reshape(m,n)
+        
