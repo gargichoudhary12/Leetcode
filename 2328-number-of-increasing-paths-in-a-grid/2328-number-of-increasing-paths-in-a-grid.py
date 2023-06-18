@@ -4,11 +4,9 @@ class Solution:
         MOD = int(1e9+7)
         @cache
         def search(row: int, col: int) -> int:
-            """Given this row and column, how many paths stem from here?"""
-            count = 1 # Just visit the node itself
+            count = 1 
             for dr, dc in DIRS:
                 if 0 <= row + dr < len(grid) and 0 <= col + dc < len(grid[0]):
-                    # Must be strictly increasing
                     if not grid[row + dr][col + dc] > grid[row][col]:
                         continue
                     count += search(row + dr, col + dc)
