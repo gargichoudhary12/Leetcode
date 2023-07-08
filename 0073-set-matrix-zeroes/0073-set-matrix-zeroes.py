@@ -1,6 +1,8 @@
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
-        firstRowValue, ROWS, COLS = 1, len(matrix), len(matrix[0])
+        firstRowValue = 1
+        ROWS = len(matrix)
+        COLS = len(matrix[0])
 
         for i in range(ROWS):
             for j in range(COLS):
