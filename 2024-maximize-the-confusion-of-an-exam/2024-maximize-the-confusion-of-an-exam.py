@@ -1,20 +1,20 @@
 class Solution:
     def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
         left = 0
-        TrueCount = 0
-        FalseCount = 0
+        TCount = 0
+        FCount = 0
         count = 0
         for right in range(len(answerKey)):
-            if answerKey[right] == 'T':
-                TrueCount += 1
+            if answerKey[right]=='T':
+                TCount+=1
             else:
-                FalseCount+=1
-            while TrueCount>k and FalseCount>k:
+                FCount+=1
+            
+            while TCount>k and FCount>k:
                 if answerKey[left]=='T':
-                    TrueCount-=1
+                    TCount-=1
                 else:
-                    FalseCount-=1
+                    FCount-=1
                 left+=1
-            count = max(count, right-left+1)
+            count = max(count,right-left+1)
         return count
-        
