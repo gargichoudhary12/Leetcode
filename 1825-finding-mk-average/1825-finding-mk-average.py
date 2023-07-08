@@ -4,10 +4,7 @@ class MKAverage:
         self.k = k
         self.arr = [0] * m
         self.pos = m
-        # Initialize lh1 of size k, rh1 of size m-k
         self.lh1, self.rh1 = self.heap_init(m, k)
-
-        # Initialize lh2 of size m-k, rh2 of size k
         self.lh2, self.rh2 = self.heap_init(m, m - k)
         self.score = 0
         self.heap_size_cutoff = 2*m
@@ -20,12 +17,7 @@ class MKAverage:
     def update(self, left_max_heap, right_min_heap, num):
         score = 0
         old_index = self.pos - self.m
-
-        # If number to add belongs with upper k
         if num > right_min_heap[0][0]:
-
-            # Check position of old, to delete number
-            # If old number was not in right heap, rebalance by moving from right to left
             if self.arr[self.pos % self.m] <= right_min_heap[0][0]:
                 if right_min_heap[0][1] >= old_index:
                     score += right_min_heap[0][0]
@@ -40,8 +32,6 @@ class MKAverage:
 
             score += num
             if self.arr[self.pos % self.m] >= right_min_heap[0][0]:
-                # Move from left_max_heap to right_min_heap
-
                 old_left_val, old_left_ind = heapq.heappop(left_max_heap)
                 score += old_left_val
                 heapq.heappush(right_min_heap, (-old_left_val, old_left_ind))
@@ -50,14 +40,10 @@ class MKAverage:
                 score -= self.arr[self.pos % self.m]
 
             heapq.heappush(left_max_heap, (-num, self.pos))
-
-        # lazy-deletion
         while left_max_heap and left_max_heap[0][1] <= old_index:
             heapq.heappop(left_max_heap)
         while right_min_heap and right_min_heap[0][1] <= old_index:
             heapq.heappop(right_min_heap)
-
-        # Diligent deletion if heaps get too big
         if len(left_max_heap) > self.heap_size_cutoff:
             left_max_heap[:] = [(a, b) for a, b in left_max_heap if b > old_index]
             heapq.heapify(left_max_heap)
