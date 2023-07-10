@@ -1,9 +1,13 @@
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
-        if(num==1):
-            return True
-        for i in range(1, num):
-            if(i*i==num):
+        l = 1
+        r = num
+        while l<=r:
+            mid = (l+r)//2
+            if mid*mid>num:
+                r = mid-1
+            elif mid*mid<num:
+                l = mid+1
+            else:
                 return True
-            elif(i*i>num):
-                return False
+        return False
