@@ -7,29 +7,30 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        graph = collections.defaultdict(list)
-        def build_graph(curr, parent):
-            if curr and parent:
-                graph[curr.val].append(parent.val)
-                graph[parent.val].append(curr.val)
-            if curr.left:
-                build_graph(curr.left, curr)
-            if curr.right:
-                build_graph(curr.right, curr) 
-        build_graph(root, None)
-        
+        def getParent(node, parent):
+            if node is None:
+                return 
 
-        answer = []
-        visited = set([target.val])
-        
-        def dfs(curr, distance):
-            if distance == k:
-                answer.append(curr)
-                return
-            for neighbor in graph[curr]:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    dfs(neighbor, distance + 1)
-        dfs(target.val, 0)
-        
-        return answer
+            parentMap[node] = parent 
+
+            getParent(node.left, node)
+            getParent(node.right, node)
+        def getNodes(node, count):
+            if not node or node in seen or count > k:
+                return 
+
+            seen.add(node)
+            if count == k:
+                res.append(node.val) 
+
+            getNodes(node.left, count + 1)
+            getNodes(node.right, count + 1)
+            getNodes(parentMap[node], count + 1)
+
+        parentMap = {}
+        seen = set()
+        res = []
+        getParent(root, None) 
+        getNodes(target, 0) 
+
+        return res
