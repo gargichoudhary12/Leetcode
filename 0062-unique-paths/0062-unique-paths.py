@@ -1,13 +1,9 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        dp = [[0]*101 for i in range(101)]
-        def count(r,c):
-            if r == 1 or c == 1:
-                return 1
-            if dp[r][c]:
-                return dp[r][c]
-            left = count(r - 1, c)
-            right = count(r, c - 1)
-            dp[r][c] = left + right
-            return dp[r][c]
-        return count(m,n)
+        row = [1]*n
+        for i in range(m-1):
+            newRow = [1]*n
+            for j in range(n-2, -1, -1):
+                newRow[j]=newRow[j+1]+row[j]
+            row = newRow
+        return row[0]
