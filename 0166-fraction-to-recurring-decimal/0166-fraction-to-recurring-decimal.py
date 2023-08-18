@@ -3,7 +3,8 @@ class Solution:
         n, remainder = divmod(abs(numerator), abs(denominator))
         sign = '-' if numerator * denominator < 0 else ''
         integer = sign + str(n)
-        if remainder == 0: return integer
+        if remainder == 0: 
+            return integer
         
         rs = {}       
         decimal = ''
