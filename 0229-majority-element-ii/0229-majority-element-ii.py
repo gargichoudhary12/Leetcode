@@ -19,8 +19,8 @@ class Solution:
             else:
                 count1 -= 1
                 count2 -= 1
-        # return nums1, nums2
-        ans = [] #taking this array may seem like oh oh lol this is O(n) time!! noh bruh.. we are surely appending only two elements in the array that are taking constant space
+        
+        ans = [] 
         if nums.count(nums1) > n//3:
             ans.append(nums1)
         if nums.count(nums2) > n//3:
