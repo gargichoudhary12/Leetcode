@@ -9,11 +9,11 @@ class Solution:
         total = [0]
         self.helper(root,low,high,total)
         return total[0]
-        
-    def helper(self,root,low,high,total):        
+    
+    def helper(self,root, low, high, total):
         if not root:
-            return         
-        if low <= root.val <= high:
-            total[0] += root.val
-        self.helper(root.left,low,high,total)
-        self.helper(root.right,low,high,total)
+            return
+        if low<=root.val<=high:
+            total[0]+=root.val
+        self.helper(root.left, low, high, total)
+        self.helper(root.right, low, high, total)
